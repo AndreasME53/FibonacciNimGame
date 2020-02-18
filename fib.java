@@ -8,15 +8,15 @@ public class fib {
         ArrayList<Integer> heapArray = new ArrayList<>();
 		
         //Creation of all the necessary sentences and integers 
-		//created in final variables and normal variables
+	//created in final variables and normal variables
         final String CHOOSE_HEAP ="Choose a heap (1-";
         final String NUMBER_OF_TOKENS ="The  number of tokens you may take is between 1 and ";
         final String TOKENS_TO_BE_TAKEN = "How many tokens do you want to take? ";
-		final String ERROR_CATCHING_IN_THE_TERMINAL = "Incorrect value entered in the terminal = ";
-		final String ERROR_CHECKING_USER_ENTERS_RIGHT_HEAP = "Enter a valid heap number between 1 and ";
+	final String ERROR_CATCHING_IN_THE_TERMINAL = "Incorrect value entered in the terminal = ";
+	final String ERROR_CHECKING_USER_ENTERS_RIGHT_HEAP = "Enter a valid heap number between 1 and ";
         final String EMPTY_HEAP = "There are no tokens left inside ";
-		final String ERROR_INCORRECT_HEAP_CHOOSEN = "You must enter in a integer between 1 and ";
-		final int DEFUALT_HEAP_SIZE = 9;
+	final String ERROR_INCORRECT_HEAP_CHOOSEN = "You must enter in a integer between 1 and ";
+	final int DEFUALT_HEAP_SIZE = 9;
         final int DEFUALT_NUMBER_OF_HEAPS = 3;
         int roundCounter = 0;
         int maximumTokenToSelect =2;
@@ -28,7 +28,7 @@ public class fib {
             for (int i = 0; i < args.length; i++) {
 
                 //This will catch the users error(s) from the terminal and tell them that 
-				//they have entered incorrect values and discard it
+		//they have entered incorrect values and discard it
                 try {
                     heapArray.add(Integer.parseInt(args[i]));
                 }catch (Exception ex) {
@@ -37,21 +37,21 @@ public class fib {
             }
         }
 		
-		// Initialize's default  values in case error
-		if ((args.length == 0) || (heapArray.size() == 0)){
-            for (int k = 0; k < DEFUALT_NUMBER_OF_HEAPS; k++) {
-                heapArray.add(DEFUALT_HEAP_SIZE);
-            }
+	// Initialize's default  values in case error
+	if ((args.length == 0) || (heapArray.size() == 0)){
+         	for (int k = 0; k < DEFUALT_NUMBER_OF_HEAPS; k++) {
+                	heapArray.add(DEFUALT_HEAP_SIZE);
+        	       }
         }
 
         //This is the start of the game
-		while(!endGame(heapArray)) {
-			//output array
+	while(!endGame(heapArray)) {
+	    //output array
             for (int j = 0; j < heapArray.size(); j++) {
                 System.out.println("Heap " + (j+1) + " " + heapArray.get(j));
             }
 			
-			//check whos playing
+	     //check whos playing
             if(roundCounter %2 ==0) {
                 System.out.println("Player 1's turn.");
             } else {
@@ -63,8 +63,7 @@ public class fib {
 
             //User Input validation
             while(!mainScanner.hasNextInt()){
-                System.out.print(ERROR_CHECKING_USER_ENTERS_RIGHT_HEAP 
-									+ heapArray.size() + ": ");
+                System.out.print(ERROR_CHECKING_USER_ENTERS_RIGHT_HEAP + heapArray.size() + ": ");
                 mainScanner.next();
             }
             int choosenheap = mainScanner.nextInt()-1;
@@ -75,30 +74,30 @@ public class fib {
                 if (heapArray.get(choosenheap) == 0 ) {
                     System.out.println(EMPTY_HEAP);
 					
-				// handles possible range of values user can choose and subtracts from chosen heap
+		// handles possible range of values user can choose and subtracts from chosen heap
                 } else { 
+	
+			int tokens;
+			int numberOfTokemsInHeap;
+			// checks within range
+			if (maximumTokenToSelect > heapArray.get(choosenheap)) {
+				System.out.println(NUMBER_OF_TOKENS + heapArray.get(choosenheap));
+				System.out.print(TOKENS_TO_BE_TAKEN);
+				tokens = tokenErrorHandler(mainScanner ,heapArray.get(choosenheap));
+				numberOfTokemsInHeap = heapArray.get(choosenheap);
+				
+			} else {
+				System.out.println(NUMBER_OF_TOKENS + maximumTokenToSelect);
+				System.out.print(TOKENS_TO_BE_TAKEN);
+				tokens = tokenErrorHandler(mainScanner ,maximumTokenToSelect);
+				numberOfTokemsInHeap = heapArray.get(choosenheap);	
 						
-					int tokens;
-					int numberOfTokemsInHeap;
-						// checks within range
-					if (maximumTokenToSelect > heapArray.get(choosenheap)) {
-						System.out.println(NUMBER_OF_TOKENS + heapArray.get(choosenheap));
-						System.out.print(TOKENS_TO_BE_TAKEN);
-						tokens = tokenErrorHandler(mainScanner ,heapArray.get(choosenheap));
-						numberOfTokemsInHeap = heapArray.get(choosenheap);
-						
-					} else {
-						System.out.println(NUMBER_OF_TOKENS + maximumTokenToSelect);
-						System.out.print(TOKENS_TO_BE_TAKEN);
-						tokens = tokenErrorHandler(mainScanner ,maximumTokenToSelect);
-						numberOfTokemsInHeap = heapArray.get(choosenheap);	
-						
-						// increments maximum number for the next user
-						if ( maximumTokenToSelect == tokens ) {
-							maximumTokenToSelect= maximumTokenToSelect + tokens;
-						}
-					}
-					//subtractions from heap 
+				// increments maximum number for the next user
+				if ( maximumTokenToSelect == tokens ) {
+					maximumTokenToSelect= maximumTokenToSelect + tokens;
+				}
+			}
+		    //subtractions from heap 
                     numberOfTokemsInHeap = numberOfTokemsInHeap - tokens;
                     heapArray.set(choosenheap, numberOfTokemsInHeap);
 					
@@ -149,9 +148,9 @@ public class fib {
     // method to check if thew game should end
     private static boolean endGame(ArrayList<Integer> heapArray) {
 		
-		int firsttokensberInArray= 0;
+	int firsttokensberInArray= 0;
         
-		for (int j = 0; j < heapArray.size(); j++) {
+	for (int j = 0; j < heapArray.size(); j++) {
             if (heapArray.get(j) != firsttokensberInArray){
                 return false;
             }
